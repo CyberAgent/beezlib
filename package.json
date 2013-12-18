@@ -1,0 +1,72 @@
+{
+    "name": "beezlib",
+    "version": "0.8.2",
+    "description": "",
+    "keywords": [
+        "beez",
+        "node",
+        "lib",
+        "stylus",
+        "imagemagick",
+        "handlebars",
+        "csssprite"
+    ],
+    "homepage": "https://github.com/CyberAgent/beezlib",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://raw.github.com/CyberAgent/beezlib/master/LICENSE"
+        }
+    ],
+    "bugs": {
+        "email": "funagayama_kei@cyberagent.co.jp",
+        "url": "https://github.com/CyberAgent/beezlib/issues"
+    },
+    "author": {
+        "name": "CyberAgent, Inc",
+        "email": "npm@cyberagent.co.jp",
+        "url": "http://www.cyberagent.co.jp/"
+    },
+    "contributors": [
+        {
+            "name": "Kei Funagayama",
+            "email": "funagayama_kei@cyberagent.co.jp",
+            "url": "https://github.com/fkei"
+        },
+        {
+            "name": "Kazuma Mishimagi",
+            "email": "mishimagi_kazuma@cyberagent.co.jp",
+            "url": "https://github.com/maginemu"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/CyberAgent/beezlib.git"
+    },
+    "dependencies": {
+        "bucks": "~0.8.1",
+        "underscore": "~1.5.0",
+        "imagemagick": "~0.1.0",
+        "mkdirp": "~0.3.0",
+        "suns": "~0.4.5",
+        "handlebars": "~1.1.0",
+        "jsonminify": "~0.2.1",
+        "stylus": "~0.40.0",
+        "nib": "~1.0.0",
+        "colors": "~0.6.0",
+        "jsonlint": "~1.6.0",
+        "beez-ua": "~1.0.3",
+        "node-spritesheet": "git+https://github.com/shibucafe/node-spritesheet.git"
+    },
+    "devDependencies": {
+        "jsdoc": "~3.2.2",
+        "jshint": "~2.3.0",
+        "mocha": "~1.14.0",
+        "should": "~2.1.0"
+    },
+    "engines": {
+        "node": "~0.10.1",
+        "npm": "~1.1.0"
+    },
+    "main": "./lib/index.js"
+}

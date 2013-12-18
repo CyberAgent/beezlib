@@ -1,0 +1,12 @@
+define(['beez'], function(beez) {
+  var Handlebars = beez.vendor.Handlebars;
+  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['test.hbsp'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+helpers = helpers || Handlebars.helpers; data = data || {};
+  
+
+
+  return "define(['beez'], function(beez) {\n  var Handlebars = beez.vendor.Handlebars;\n  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};\ntemplates['test.hbsp'] = template(function (Handlebars,depth0,helpers,partials,data) {\n  this.compilerInfo = [2,'>= 1.0.0-rc.3'];\nhelpers = helpers || Handlebars.helpers; data = data || {};\n  \n\n\n  return \"<h1>hbsp</h1>\";\n  });\n    return templates['test.hbsp'];});";
+  });
+    return templates['test.hbsp'];});

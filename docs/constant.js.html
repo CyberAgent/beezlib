@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: constant.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: constant.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * @name constant.js
+ * @author Yuhei Aihara &lt;aihara_yuhei@cyberagent.co.jp>
+ * copyright (c) Cyberagent Inc.
+ * @overview constant library
+ */
+
+var constant = module.exports = {};
+
+/**----------------------------------------
+ * extension name
+ */
+constant.EXTENSION_JS = '.js';
+constant.EXTENSION_CSS = '.css';
+constant.EXTENSION_HTML = '.html';
+constant.EXTENSION_STYL = '.styl';
+constant.EXTENSION_HBS = '.hbs';
+constant.EXTENSION_HBSP = '.hbsp';
+constant.EXTENSION_HBSC_JS = '.hbsc.js';
+constant.EXTENSION_HBSP_JS = '.hbsp.js';
+constant.EXTENSION_HTML_HBS = '.html.hbs';
+constant.EXTENSION_JS_HBS = '.js.hbs';
+constant.EXTENSION_PNG = '.png';
+constant.EXTENSION_JPG = '.jpg';
+constant.EXTENSION_JPEG = '.jpeg';
+
+/**----------------------------------------
+ * file name
+ */
+// name of template.hbs2hbsc2html before.
+constant.INDEX_HTML_HBS = 'index' + constant.EXTENSION_HTML_HBS;
+// name of template.requirehbs2hbsc before.
+constant.REQUIRE_BEEZ_JS_HBS = 'require.beez' + constant.EXTENSION_JS_HBS;
+
+
+/**----------------------------------------
+ * regular expression
+ */
+constant.REG_JS = new RegExp('\\' + constant.EXTENSION_JS + '$');
+constant.REG_CSS = new RegExp('\\' + constant.EXTENSION_CSS + '$');
+constant.REG_HTML = new RegExp('\\' + constant.EXTENSION_HTML + '$');
+constant.REG_STYL = new RegExp('\\' + constant.EXTENSION_STYL + '$');
+constant.REG_HBS = new RegExp('\\' + constant.EXTENSION_HBS + '$');
+constant.REG_HBSP = new RegExp('\\' + constant.EXTENSION_HBSP + '$');
+constant.REG_HTML_HBS = new RegExp('\\' + constant.EXTENSION_HTML_HBS + '$');
+constant.REG_HBSC_JS = new RegExp('\\.hbsc\\.js$');
+constant.REG_HBSP_JS = new RegExp('\\.hbsp\\.js$');
+constant.REG_REQUIRE_BEEZ_JS = new RegExp('require\\.beez\\..+\\..+\\.js$');
+constant.REG_OPTIPNG_FILE = new RegExp('\\' + constant.EXTENSION_PNG + '$');
+constant.REG_JPEGOPTIM_FILE = new RegExp('(\\' + constant.EXTENSION_JPG + '|\\' + constant.EXTENSION_JPEG + ')$');
+constant.REG_STYLUS2CSS_FILE = new RegExp('^[^_]+\\' + constant.EXTENSION_STYL + '$');
+// name of template.requirehbs2hbsc after. example: 'require.beez.[env].[key].js'
+
+/**----------------------------------------
+ * beezlib default config
+ */
+// default separator
+constant.DEFAULT_SEPARATOR = '-';
+
+// default encode
+constant.DEFAULT_ENCODE = 'utf-8';
+
+// css stylus default options
+constant.CSS_STYLUS_DEFAULT_OPTIONS = {
+    encode: constant.DEFAULT_ENCODE,
+    compress: false,
+    firebug: false,
+    linenos: false,
+    nib: true,
+    url: null,
+    fn: null
+};
+
+// css sprite default options
+constant.CSS_SPRITE_DEFAULT_OPTIONS = {
+    ratios: [ 1 ],
+    extnames: [ constant.EXTENSION_PNG ],
+    heads: [ 'sprite' ],
+    separator: constant.DEFAULT_SEPARATOR
+};
+
+// image ratioResize default options
+constant.IMAGE_RATIORESIZE_DEFAULT_OPTIONS = {
+    baseRatio: 2,
+    ratios: [ 1, 1.3, 1.5, 2, 3 ],
+    extnames: [ constant.EXTENSION_PNG ],
+    include: [ '.' ],
+    exclude: [],
+    separator: constant.DEFAULT_SEPARATOR
+};
+
+// logger color default theme
+constant.LOGGER_COLOR_THEME = {
+    silly: 'rainbow',
+    input: 'grey',
+    verbose: 'cyan',
+    prompt: 'grey',
+    info: 'green',
+    data: 'grey',
+    help: 'cyan',
+    warn: 'yellow',
+    debug: 'blue',
+    error: 'red',
+    err: 'red',
+    title: 'yellow'
+};
+
+/**----------------------------------------
+ * beez command default config
+ */
+// beez-hbs2hbsc default options
+constant.BOOTSTRAP_DEFAULT_OPTIONS = {
+    html: [ constant.INDEX_HTML_HBS ],
+    datamain: [ constant.REQUIRE_BEEZ_JS_HBS ]
+};
+
+// beez-deploy default options
+constant.DEPLOY_DEFAULT_OPTIONS = {
+    optipng: false,
+    jpegoptim: false,
+    include: [ constant.EXTENSION_JS, constant.EXTENSION_CSS, constant.REQUIRE_BEEZ_JS ],
+    exclude: []
+};
+
+// beez-ignore default options
+constant.IGNORE_DEFAULT_OPTIONS = {
+    include: [],
+    exclude: []
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="JSONStore.html">JSONStore</a></li></ul><h3>Namespaces</h3><ul><li><a href="beezlib.html">beezlib</a></li><li><a href="cmd.html">cmd</a></li><li><a href="css.html">css</a></li><li><a href="fsys.html">fsys</a></li><li><a href="hbs.html">hbs</a></li><li><a href="image.html">image</a></li><li><a href="image.html#imagemagick">imagemagick</a></li><li><a href="logger.html">logger</a></li><li><a href="obj.html">obj</a></li><li><a href="regexp.html">regexp</a></li><li><a href="store.html">store</a></li><li><a href="stylus.html">stylus</a></li><li><a href="template.html">template</a></li></ul><h3>Global</h3><ul><li><a href="global.html#hbs2hbsc2html">hbs2hbsc2html</a></li><li><a href="global.html#isUAOverride">isUAOverride</a></li><li>prite.&lt;lib/css></li><li><a href="global.html#require2hbscjs">require2hbscjs</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Wed Dec 18 2013 14:29:38 GMT+0900 (JST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

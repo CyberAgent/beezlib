@@ -1,0 +1,12 @@
+{
+    "develop": { // enviroment name
+        "entrypoint": "index/index",
+        "requirejs": {
+            "test": true,
+            "config": {
+                "test": true
+            }
+        }
+        // ....
+    }
+}

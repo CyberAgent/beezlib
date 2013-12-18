@@ -13,3 +13,21 @@ results
 
 npm-debug.log
 node_modules
+.DS_Store
+.idea
+test.hbsc.js
+test.hbsp.js
+require.beez.test.js
+test.html
+test.css
+logo-10.png
+logo-13.png
+logo-20.png
+logo-30.png
+logo-600x600.png
+sprite-logo.styl
+sprite-logo@*
+user.copy.json
+.tern-port
+test/hbs/local.develop.html
+test/hbs/require.beez.local.develop.js

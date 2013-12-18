@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: template/hbs.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: template/hbs.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * @name hbsjs&lt;lib/template>
+ * @author Kei Funagayama &lt;funagayama_kei@cyberagent.co.jp>
+ * copyright (c) Cyberagent Inc.
+ * @overview handlebars template library
+ */
+
+var path = require('path');
+var fs = require('fs');
+
+var _ = require('underscore');
+var handlebars = require('handlebars');
+var ua = require('beez-ua');
+
+var obj = require('../obj');
+var constant = require('../constant');
+var logger = require('../logger');
+
+var DEFAULT_ENCODE = constant.DEFAULT_ENCODE;
+
+/**
+ * Override judgment of UserAgent.
+ *
+ * @param {Object} config
+ * @param {Object} headers
+ * @return {boolean}
+ */
+var isUAOverride = function isUAOverride(config, headers) {
+    if (!config.extend.hasOwnProperty('condition') ||
+        !config.extend.condition.hasOwnProperty('ua')) {
+        return false;
+    }
+
+    // Get OS information from UserAgent
+    ua.setup(headers['user-agent'] || '-');
+
+    return _.some(config.extend.condition.ua, function(os) {
+        return !!ua.os[os];
+    });
+};
+
+/**
+ * @name hbs
+ * @namespace hbs
+ */
+module.exports = {
+    /**
+     * If you have a hbs, I generated. hbsc.js what was handlebars.precompile.
+     * Warnning: JS that is generated, become Handlebars.templates.
+     *
+     * @name hbs2hbscjs
+     * @memberof hbs
+     * @method
+     * @param {String} hbsdir src/dst dir path
+     * @param {String} hbsfile src hbs file name
+     * @param {String} encode read file encode.
+     * @return {String} Output file path.
+     */
+    hbs2hbscjs: function (hbsdir, hbsfile, encode) {
+        encode = encode || DEFAULT_ENCODE;
+
+        var reg_hbs =  /.hbs$/;
+        var hbspath = path.normalize(hbsdir + '/' + hbsfile);
+        var hbscjsfile = hbsfile.replace(reg_hbs, '.hbsc.js');
+        var dstpath = path.normalize(hbsdir + '/' + hbscjsfile);
+
+        var out = [];
+
+        // beez custom
+        out.push('define([\'beez\'], function(beez) {\n');
+        out.push('  var Handlebars = beez.vendor.Handlebars;\n');
+        out.push('  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};\n');
+
+        var data = fs.readFileSync(hbspath, encode);
+        var template = path.basename(hbspath);
+        template = template.replace(reg_hbs, '');
+
+        logger.debug('precompile file:', hbspath);
+        out.push('templates[\''+template+'\'] = template(' + handlebars.precompile(data)+');\n');
+
+        // end
+        out.push('    return templates[\''+template+'\'];');
+        out.push('});');
+        out = out.join('');
+        fs.writeFileSync(dstpath, out, encode);
+
+        return dstpath;
+
+    },
+    /**
+     * If there is a hbsp, I generate the. hbsp.js what was handlebars.precompile.
+     * Warnning: JS that is generated, become Handlebars.partials.
+     *
+     * @name hbsp2hbspjs
+     * @memberof hbs
+     * @method
+     * @param {String} hbspdir src/dst dir path
+     * @param {String} hbspfile src hbsp file name
+     * @param {String} encode read file encode.
+     * @return {String} Output file path.
+     */
+    hbsp2hbspjs: function (hbspdir, hbspfile, encode) {
+        encode = encode || DEFAULT_ENCODE;
+
+        var reg_hbsp = /\.hbsp$/;
+        var hbsppath = path.normalize(hbspdir + '/' + hbspfile);
+        var hbspjsfile = hbspfile.replace(reg_hbsp, '.hbsp.js');
+        var dstpath = path.normalize(hbspdir + '/' + hbspjsfile);
+
+        var out = [];
+
+        out.push('define([\'beez\'], function(beez) {\n');
+        out.push('  var Handlebars = beez.vendor.Handlebars;\n');
+        out.push('  var template = Handlebars.template, partials = Handlebars.partials = Handlebars.partials || {};\n');
+
+        var data = fs.readFileSync(hbsppath, encode);
+        var template = path.basename(hbsppath);
+        template = template.replace(reg_hbsp, '');
+
+        out.push('partials[\''+template+'\'] = template('+handlebars.precompile(data)+');\n');
+        out.push('return partials[\''+template+'\'];');
+        out.push('});');
+        out = out.join('');
+        fs.writeFileSync(dstpath, out, encode);
+        return dstpath;
+
+    },
+
+    /**
+     * If you have a "require.beez.js.hbs", I generated "require.beez.[env].js".
+     * "require.beez.[env].js" what was handlebars.precompile.
+     * Warnning: JS that is generated, become Handlebars.templates.
+     *
+     * @name require2hbscjs
+     * @param {String} dstpath absolute path of "require.beez.[env].[key].js"
+     * @param {String} hbsfile src hbs file name
+     * @param {Object} store bootstrap store.
+     * @param {String} encode read file encode.
+     * @param {Object} headers http request headers.
+     * @return {String} Output file path.
+     */
+    requirehbs2hbsc: function(dstpath, hbsfile, store, encode, headers) {
+        encode = encode || DEFAULT_ENCODE;
+
+        var dstfile = path.basename(dstpath);
+
+        var s = Array.prototype.slice.call(dstfile.split('.'));
+        var extname = s.pop();
+        var key= s.pop();
+        var env = s.pop();
+        var prefix = s.join('.');
+
+        var hbspath = path.normalize(path.join(path.dirname(dstpath), hbsfile));
+        var data = fs.readFileSync(hbspath, encode);
+        var template = handlebars.compile(data);
+
+
+        var entrypoint = 'index';
+        var clientconf = {};
+        if (store.stat.mapping.hasOwnProperty(key)) {
+            var conffile = store.stat.mapping[key];
+            store.stat.reload(conffile);
+            clientconf = store.stat.data[key];
+        }
+        if (clientconf.hasOwnProperty('entrypoint')) {
+            entrypoint = clientconf.entrypoint;
+        }
+
+        if (clientconf.hasOwnProperty('extend') && headers && isUAOverride(clientconf, headers) && clientconf.extend.hasOwnProperty('content')) {
+            clientconf.requirejs = obj.copyr(clientconf.requirejs, clientconf.extend.content);
+        }
+
+        var context = {
+            config: new handlebars.SafeString(JSON.stringify(clientconf.requirejs, null, '    ')),
+            entrypoint: entrypoint,
+            name: env,
+            key: key
+        };
+
+        var html = template(context);
+        fs.writeFileSync(dstpath, html, encode);
+
+        return dstpath;
+    },
+
+    /**
+     * If you have a "index.html.hbs", I generated "[env].html".
+     *
+     * @name hbs2hbsc2html
+     * @param {String} dstpath absolute path of "[env].html"
+     * @param {String} hbsfile src hbs file name
+     * @param {Object} store bootstrap store.
+     * @param {String} encode read file encode.
+     * @param {Object} headers http request headers
+     * @return {String} Output file path.
+     */
+    hbs2hbsc2html: function(dstpath, hbsfile, store, encode, headers) {
+        encode = encode || DEFAULT_ENCODE;
+
+        var dstfile = path.basename(dstpath);
+
+        var s = Array.prototype.slice.call(dstfile.split('.'));
+        var extname = s.pop();
+        var key= s.pop();
+        var env = s.pop();
+        var prefix = s.join('.');
+
+        var hbspath = path.normalize(path.join(path.dirname(dstpath), hbsfile));
+        var data = fs.readFileSync(hbspath, encode);
+        var template = handlebars.compile(data);
+
+        var locals = {};
+        if (store.stat.data.hasOwnProperty(key)) {
+            locals = JSON.parse(JSON.stringify(store.stat.data[key])); // deep clone
+            if (locals.hasOwnProperty('extend') && headers && isUAOverride(locals, headers) && locals.extend.hasOwnProperty('content')) {
+                locals.requirejs = obj.copyr(locals.requirejs, locals.extend.content);
+            }
+            for (var k in locals.requirejs.config) {
+                var newkey = k.replace('.', '_'); // data.requirejs.config key copy . -> _
+                locals.requirejs.config[newkey] = locals.requirejs.config[k];
+            }
+
+            locals.name = env; // enviroment
+            locals.key = key;
+        }
+
+        var output = template(locals);
+        fs.writeFileSync(dstpath, output, encode);
+
+        return dstpath;
+    }
+
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="JSONStore.html">JSONStore</a></li></ul><h3>Namespaces</h3><ul><li><a href="beezlib.html">beezlib</a></li><li><a href="cmd.html">cmd</a></li><li><a href="css.html">css</a></li><li><a href="fsys.html">fsys</a></li><li><a href="hbs.html">hbs</a></li><li><a href="image.html">image</a></li><li><a href="image.html#imagemagick">imagemagick</a></li><li><a href="logger.html">logger</a></li><li><a href="obj.html">obj</a></li><li><a href="regexp.html">regexp</a></li><li><a href="store.html">store</a></li><li><a href="stylus.html">stylus</a></li><li><a href="template.html">template</a></li></ul><h3>Global</h3><ul><li><a href="global.html#hbs2hbsc2html">hbs2hbsc2html</a></li><li><a href="global.html#isUAOverride">isUAOverride</a></li><li>prite.&lt;lib/css></li><li><a href="global.html#require2hbscjs">require2hbscjs</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Wed Dec 18 2013 14:29:38 GMT+0900 (JST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

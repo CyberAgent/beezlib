@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: logger.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: logger.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * @name logger.js&lt;lib>
+ * @author Kei Funagayama &lt;funagayama_kei@cyberaent.co.jp>
+ * copyright (c) Cyberagent Inc.
+ * @overview Simple Logger module.
+ */
+
+/**
+ * @name logger
+ * @namespace logger
+ */
+module.exports = {
+    /**
+     * @name LEVELS
+     * @memberof logger
+     */
+    LEVELS: {
+        'TRACE': 0,
+        'DEBUG': 1,
+        'INFO': 2,
+        'WARN': 3,
+        'ERROR': 4,
+        'FATAL': 5
+    },
+
+    /**
+     * @name level
+     * @memberof logger
+     */
+    level: 4, // WARN
+    colors: false, // colors setup flag
+
+    /**
+     * @name output
+     * @memberof logger
+     * @method
+     * @param {String} prefix message prefix.
+     * @param {Array} messages output messages
+     * @private
+     */
+    output: function (prefix, preout, messages) {
+        if (prefix && this.LEVELS[prefix] &lt; this.level) {
+            return;
+        }
+
+        var msg = "";
+        for (var i = 0; i &lt; messages.length; i++) {
+            0 &lt; i ? msg += ' ' + messages[i]: msg += messages[i];
+        }
+        var out = msg;
+        if (prefix) { out = preout + ' ' + msg; }
+        console.log(out);
+    },
+
+    /**
+     * @name trace
+     * @memberof logger
+     * @method
+     * @param {Arguments} messages Variable argument message
+     * @example
+     * logger.trace('hoge', 'foo', 'bar', 10);
+     *
+     * > hoge foo bar 10
+     */
+    trace: function () {
+        var prefix = 'TRACE';
+        this.output(prefix, prefix.cyan, Array.prototype.slice.call(arguments));
+    },
+    /**
+     * @name debug
+     * @memberof logger
+     * @method
+     * @param {Arguments} messages　Variable argument message
+     * @example
+     * logger.debug('hoge', 'foo', 'bar', 10);
+     *
+     * > hoge foo bar 10
+     */
+    debug: function () {
+        var prefix = 'DEBUG';
+        this.output(prefix, prefix.blue, Array.prototype.slice.call(arguments));
+    },
+    /**
+     * @name info
+     * @memberof logger
+     * @method
+     * @param {Arguments} messages Variable argument message
+     * @example
+     * logger.info('hoge', 'foo', 'bar', 10);
+     *
+     * > hoge foo bar 10
+     */
+    info: function () {
+        var prefix = 'INFO';
+        this.output(prefix, prefix.green, Array.prototype.slice.call(arguments));
+    },
+    /**
+     * plain message
+     * @name message
+     * @memberof logger
+     * @method
+     * @param {Arguments} messages Variable argument message
+     * @example
+     * logger.message('hoge', 'foo', 'bar', 10);
+     *
+     * > hoge foo bar 10
+     */
+    message: function () {
+        this.output('', '', Array.prototype.slice.call(arguments));
+    },
+    /**
+     * short-cut this.message
+     * @name msg
+     * @memberof logger
+     * @method
+     * @param {Arguments} messages Variable argument message
+     * @example
+     * logger.msg('hoge', 'foo', 'bar', 10);
+     *
+     * > hoge foo bar 10
+     */
+    msg: function () {
+        this.output('', '', Array.prototype.slice.call(arguments));
+    },
+    /**
+     * @name warn
+     * @memberof logger
+     * @method
+     * @param {Arguments} messages Variable argument message
+     * @example
+     * logger.warn('hoge', 'foo', 'bar', 10);
+     *
+     * > hoge foo bar 10
+     */
+    warn: function () {
+        var prefix = 'WARN';
+        this.output(prefix, prefix.yellow, Array.prototype.slice.call(arguments));
+    },
+    /**
+     * @name error
+     * @memberof logger
+     * @method
+     * @param {Arguments} messages Variable argument message
+     * @example
+     * logger.error('hoge', 'foo', 'bar', 10);
+     *
+     * > hoge foo bar 10
+     */
+    error: function () {
+        var prefix = 'ERROR';
+        this.output(prefix, prefix.red, Array.prototype.slice.call(arguments));
+    },
+    /**
+     * @name fatal
+     * @memberof logger
+     * @method
+     * @param {Arguments} messages Variable argument message
+     * @example
+     * logger.fatal('hoge', 'foo', 'bar', 10);
+     *
+     * > hoge foo bar 10
+     */
+    fatal: function () {
+        var prefix = 'FATAL';
+        this.output(prefix, prefix.red, Array.prototype.slice.call(arguments));
+    }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="JSONStore.html">JSONStore</a></li></ul><h3>Namespaces</h3><ul><li><a href="beezlib.html">beezlib</a></li><li><a href="cmd.html">cmd</a></li><li><a href="css.html">css</a></li><li><a href="fsys.html">fsys</a></li><li><a href="hbs.html">hbs</a></li><li><a href="image.html">image</a></li><li><a href="image.html#imagemagick">imagemagick</a></li><li><a href="logger.html">logger</a></li><li><a href="obj.html">obj</a></li><li><a href="regexp.html">regexp</a></li><li><a href="store.html">store</a></li><li><a href="stylus.html">stylus</a></li><li><a href="template.html">template</a></li></ul><h3>Global</h3><ul><li><a href="global.html#hbs2hbsc2html">hbs2hbsc2html</a></li><li><a href="global.html#isUAOverride">isUAOverride</a></li><li>prite.&lt;lib/css></li><li><a href="global.html#require2hbscjs">require2hbscjs</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Wed Dec 18 2013 14:29:38 GMT+0900 (JST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
