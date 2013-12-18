@@ -1,19 +1,18 @@
 beezlib
 =======
 
-
-# About
+## About
 
 Node.js library for beez and beez-founation with beez-tools.
 
 
-# Used Project
+## Used Project
 
 - [beez](https://github.com/CyberAgent/beez)
 - [beez-foundation](https://github.com/CyberAgent/beez-foundation)
 - [beez-tools](https://github.com/CyberAgent/beez-tools)
 
-# Requirements
+## Requirements
 
 - [ImageMagick](http://www.imagemagick.org/script/index.php)
 - [Underscore.js](http://underscorejs.org/)
@@ -32,7 +31,7 @@ Node.js library for beez and beez-founation with beez-tools.
 - [jsdoc3](https://github.com/jsdoc3/jsdoc)
 
 
-# Features
+## Features
 
 - sprite
     - 複数画像を一枚にする
@@ -71,27 +70,27 @@ Node.js library for beez and beez-founation with beez-tools.
         - require.beez.js.hbs to require.beez.hbsc.js
         - hbs to hbsc to html
 
-# Install
+## Install
 
 ```sh
 $ npm install beezlib
 ```
 
-# Test
+## Test
 
 ```sh
 $ npm install .
 $ make test
 ```
 
-# jshint
+## jshint
 
 ```sh
 $ npm install .
 $ make jshint
 ```
 
-# jsdoc
+## jsdoc
 
 ```sh
 $ npm install .
@@ -99,7 +98,7 @@ $ make jsdoc
 ```
 
 
-# Contributing
+## Contributing
 
 
 - Kei FUNAGAYAMA - [@fkei](https://twitter.com/fkei) [github](https://github.com/fkei)
@@ -107,11 +106,11 @@ $ make jsdoc
 - HIRAKI Satoru - [github](https://github.com/Layzie)
 - Yuhei Aihara - [github](https://github.com/yuhei-a)
 
-# Copyright
+## Copyright
 
 CyberAgent, Inc. All rights reserved.
 
-# LICENSE
+## LICENSE
 
 @see : [LICENSE](https://raw.github.com/CyberAgent/beezlib/master/LICENSE)
 
