@@ -99,9 +99,9 @@ $ make jsdoc
 
 # Documents
 
-## .json/.js files
+## Load configuration file (javascript/json)
 
-Load configuration file (javascript/json)
+You can load configuration file writeen by json, javascript.
 
 **test/json/item.json**
 
