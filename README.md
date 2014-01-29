@@ -118,7 +118,11 @@ You can load configuration file writeen by json, javascript.
 
 ```javascript
 (function () {
-    var fs = require('fs');
+
+    // ここでは、Node.js's global object が利用可能です。
+    // 'process', 'require', '__filename', '__dirname', 'module', 'exports'
+    
+    var fs = require('fs'); // sample
 
     return {
         hoge: "foo"
