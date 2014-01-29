@@ -97,7 +97,9 @@ $ npm install .
 $ make jsdoc
 ```
 
-# JSファイル(JSON) - node.js global object 
+# Documents
+
+## Load configuration file. javascript file(json like)
 
 **test/json/json.js**
 
@@ -111,6 +113,7 @@ $ make jsdoc
 }());
 ```
 
+> Support node.js global object
 
 
 ## Contributing
