@@ -119,7 +119,7 @@ You can load configuration file writeen by json, javascript.
 ```javascript
 (function () {
 
-    // ここでは、Node.js's global object が利用可能です。
+    // You can use these global objects on Node.js.
     // 'process', 'require', '__filename', '__dirname', 'module', 'exports'
     
     var fs = require('fs'); // sample
