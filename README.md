@@ -99,7 +99,20 @@ $ make jsdoc
 
 # Documents
 
-## Load configuration file. javascript file(json like)
+## .json/.js files
+
+Load configuration file (javascript/json)
+
+**test/json/item.json**
+
+```json
+{
+    "item": { // item data
+        "fruit": "Orange"
+    }
+}
+```
+
 
 **test/json/json.js**
 
