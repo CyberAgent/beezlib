@@ -97,6 +97,21 @@ $ npm install .
 $ make jsdoc
 ```
 
+# JSファイル(JSON) - node.js global object 
+
+**test/json/json.js**
+
+```javascript
+(function () {
+    var fs = require('fs');
+
+    return {
+        hoge: "foo"
+    };
+}());
+```
+
+
 
 ## Contributing
 
