@@ -31,3 +31,5 @@ user.copy.json
 .tern-port
 test/hbs/local.develop.html
 test/hbs/require.beez.local.develop.js
+test/image/sprite/.cache
+
