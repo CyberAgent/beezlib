@@ -191,6 +191,11 @@ describe('beezlib', function () {
         var images = index.css.sprite.getImages('test/image/sprite', 'logo', options);
         index.css.sprite.build('test/image/sprite', 'logo', images, options, done);
     });
+    it('css/sprite#build overwrite: false', function (done) {
+        var options = { extnames: ['.png', '.jpg'], ratios: [1, 2], overwrite: false};
+        var images = index.css.sprite.getImages('test/image/sprite', 'logo', options);
+        index.css.sprite.build('test/image/sprite', 'logo', images, options, done);
+    });
     it('css/sprite#getImages', function (done) {
         var options = { extnames: ['.png', '.jpg'] };
         var images = index.css.sprite.getImages('test/image/sprite', 'logo', options);
@@ -381,5 +386,19 @@ describe('beezlib', function () {
             done();
         });
     });
+
+    it('checker# save - write - reset - read', function(done) {
+        var options = { extnames: ['.png', '.jpg'], ratios: [1, 2] };
+        var images = index.css.sprite.getImages('test/image/sprite', 'logo', options);
+        var checker = new index.fsys.Checker(images, 'test/image/sprite/', '.cache');
+        checker.save('image');
+        checker.data.image.should.equal(checker.getSize(images)).be.ok;
+        checker.write();
+        checker.reset();
+        checker.read();
+        checker.data.image.should.equal(checker.getSize(images)).be.ok;
+        done();
+    });
+
 
 });
