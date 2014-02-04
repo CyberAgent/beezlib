@@ -103,6 +103,7 @@ describe('beezlib', function () {
         store.data.item.should.be.ok;
         store.mapping.item.should.equal('test/json/item.json');
         store.mapping.hoge.should.equal('test/json/json.js');
+        store.hash['test/json/dir/index.json'].should.equal('8b8ef0b684580b7a03e1928651a8d3b545211a6838a1432a91e030015ca8a803').be.ok;
     });
     it('fsys/readJsonSync',function() {
         var file = 'test/json/user.json';
