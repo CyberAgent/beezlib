@@ -158,7 +158,6 @@ describe('beezlib', function () {
         var store = {
             stat: new index.fsys.store.JSONStore('test/store')
         };
-        debugger;
         var dstpath = index.template.hbs2hbsc2html('test/hbs/local.develop.html', 'index.html.hbs', store);
         dstpath.should.equal('test/hbs/local.develop.html');
     });
@@ -168,13 +167,12 @@ describe('beezlib', function () {
             firebug: false,
             linenos: false,
             nib: true,
-            fn : function (styl) {
-                styl.define('body-padding', function (data) {
-                    var rate  = data.val || 1;
-                    var base = 10;
-
-                    return (rate * base) + 'px';
-                });
+            fn : {
+                TEST: 'TEST',
+                'body-padding': function (value) {
+                    value.should.equal(3);
+                    return value + 'px';
+                }
             }
         }, function (err, css) {
             if (err) {
