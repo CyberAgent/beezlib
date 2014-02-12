@@ -1,8 +1,6 @@
 beezlib
 =========
 
-[![NPM](https://nodei.co/npm/beezlib.png)](https://nodei.co/npm/beezlib/)
-
 
 ## About
 
