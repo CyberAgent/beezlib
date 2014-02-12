@@ -1,6 +1,9 @@
 beezlib
 =========
 
+[![NPM](https://nodei.co/npm/beezlib.png)](https://nodei.co/npm/beezlib/)
+
+
 ## About
 
 Node.js library for beez and beez-founation with beez-tools.
