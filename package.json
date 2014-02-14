@@ -11,6 +11,9 @@
         "handlebars",
         "csssprite"
     ],
+    "scripts": {
+        "test": "mocha -r should test/test-*.js"
+    },
     "homepage": "https://github.com/CyberAgent/beezlib",
     "licenses": [
         {
@@ -56,6 +59,7 @@
         "colors": "~0.6.0",
         "jsonlint": "~1.6.0",
         "beez-ua": "~1.0.3",
+        "copy": "~0.0.1",
         "node-spritesheet": "git+https://github.com/shibucafe/node-spritesheet.git"
     },
     "devDependencies": {

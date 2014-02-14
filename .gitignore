@@ -29,7 +29,7 @@ sprite-logo.styl
 sprite-logo@*
 user.copy.json
 .tern-port
-test/hbs/local.develop.html
+test/hbs/index.local.develop.html
 test/hbs/require.beez.local.develop.js
 test/image/sprite/.cache
 

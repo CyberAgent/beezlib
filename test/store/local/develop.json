@@ -1,10 +1,20 @@
 {
     "develop": { // enviroment name
         "entrypoint": "index/index",
+        "extend": {
+            "condition": {
+                "ua": [ "android", "ios" ]
+            },
+            "content": {
+                "config": {
+                    "test": true
+                }
+            }
+        },
         "requirejs": {
             "test": true,
             "config": {
-                "test": true
+                "test": false
             }
         }
         // ....
