@@ -14,13 +14,13 @@ describe('beezlib.obj', function () {
             },
             ary: [1,2,3,4,5],
             date: new Date("2000/01/01 00:00:0"),
-            reg: new RegExp("^original$"),
+            reg: new RegExp("^original$")
         };
 
         var extend = {
             fn: {
                 a: function () {
-                    return "extend"
+                    return "extend";
                 }
             },
             ary: [5,4,3,2,1],
@@ -31,19 +31,36 @@ describe('beezlib.obj', function () {
                 a: 0,
                 b: 1,
                 c: "",
-                d: [],
+                d: []
             }],
             e: {
                 a: 0,
                 b: 1,
                 c: "",
-                d: [],
+                d: []
             }
 
         };
 
         var out = beezlib.obj.copy(extend, original);
+        /**
+        console.log("--original--");
+        console.log(original);
+        console.log("");
+        console.log("");
+        console.log("----");
+        console.log("--extend--");
+        console.log(extend);
+        console.log("----");
+        console.log("");
+        console.log("");
 
+        console.log("--out--");
+        console.log(out);
+        console.log("----");
+         */
+
+        // fn
         original.fn.a().should.equal('original');
         extend.fn.a().should.equal('extend');
         out.fn.a().should.equal('extend');
@@ -55,5 +72,6 @@ describe('beezlib.obj', function () {
         original.reg.toString().should.equal("/^original$/").be.ok;
         extend.reg.toString().should.equal("/^extend$/").be.ok;
         out.reg.toString().should.equal("/^extend$/").be.ok;
+
     });
 });
