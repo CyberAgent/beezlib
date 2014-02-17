@@ -3,6 +3,7 @@ var should = require('should');
 var beezlib = require('../lib');
 
 describe('beezlib.css', function () {
+
     it('stylus write not extend', function(done) {
         beezlib.css.stylus.write('./test/stylus/test.styl', './test/stylus/test.css', {
             options: {
@@ -42,18 +43,16 @@ describe('beezlib.css', function () {
                     color: '#000000',
                     'body-padding': function (value) {
                         should.fail();
-                        //value.should.equal(3);
-                        //return value + 'px';
                     }
                 }
             },
             extend: {
-                "condition": {
-                    "ua": [ "android", "ios" ]
+                condition: {
+                    ua: [ "android", "ios" ]
                 },
-                "content": {
-                    "options": {
-                        "fn": {
+                content: {
+                    options: {
+                        fn: {
                             color: '#111111',
                             'body-padding': function (value) {
                                 value.should.equal(3);
