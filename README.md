@@ -16,7 +16,7 @@ Node.js library for beez and beez-founation with beez-tools.
 ## Requirements
 
 - [ImageMagick](http://www.imagemagick.org/script/index.php)
-- [Underscore.js](http://underscorejs.org/)
+- [Lo-Dash](http://lodash.com/)
 - [mkdirp](https://github.com/substack/node-mkdirp)
 - [suns.js](https://github.com/CyberAgent/suns.js)
 - [handlebars](http://handlebarsjs.com/)
@@ -63,7 +63,7 @@ Node.js library for beez and beez-founation with beez-tools.
 - simple logging
     - ログレベル、端末のカラーリング、ログ出力行番号サポート
 - obj
-    - cp -rf フォルダ内を再帰的にコピー
+    - オブジェクトのコピー
 - template
     - handlebars
         - hbs to hbsc.js
