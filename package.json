@@ -9,6 +9,9 @@
         "stylus",
         "imagemagick",
         "handlebars",
+        "jpegoptim",
+        "optipng",
+        "pngquant",
         "csssprite"
     ],
     "scripts": {
