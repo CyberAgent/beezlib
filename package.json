@@ -1,6 +1,6 @@
 {
     "name": "beezlib",
-    "version": "0.9.9",
+    "version": "0.9.10",
     "description": "The utility library for Node.js using beez projects.",
     "keywords": [
         "beez",
