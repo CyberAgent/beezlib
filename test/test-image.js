@@ -141,7 +141,7 @@ describe('beezlib.image', function () {
         });
 
     });
-    it('optim set options', function(done) {
+    it('optim set options #1', function(done) {
         var options = {
             optipng: {
                 use: true,
@@ -150,16 +150,17 @@ describe('beezlib.image', function () {
             jpegoptim: {
                 use: true,
                 options: '--strip-all'
+            },
+            pngquant: {
+                use: true
             }
         };
 
         beezlib.image.optim('test/image/logo.jpg', options, function(err, res) {
-
             res.should.equal("test/image/logo.jpg").be.ok;
             should.not.exist(err);
 
             beezlib.image.optim('test/image/logo.png', options, function(err1, res1) {
-
                 res1.should.equal("test/image/logo.png").be.ok;
                 should.not.exist(err1);
                 done();
@@ -168,6 +169,43 @@ describe('beezlib.image', function () {
 
     });
 
+    it('optim set options #2', function(done) {
+        var options = {optipng:{use:true},jpegoptim:{use:true},pngquant:{use:true}};
+        beezlib.image.optim('test/image/logo.png', options, function(err1, res1) {
+            res1.should.equal("test/image/logo.png").be.ok;
+            should.not.exist(err1);
+            done();
+        });
+
+    });
+    it('optim set options #3', function(done) {
+        var options = {optipng:{use:false},jpegoptim:{use:true},pngquant:{use:true}};
+        beezlib.image.optim('test/image/logo.png', options, function(err1, res1) {
+            res1.should.equal("test/image/logo.png").be.ok;
+            should.not.exist(err1);
+            done();
+        });
+
+    });
+
+    it('optim set options #4', function(done) {
+        var options = {optipng:{use:true},jpegoptim:{use:true},pngquant:{use:false}};
+        beezlib.image.optim('test/image/logo.png', options, function(err1, res1) {
+            res1.should.equal("test/image/logo.png").be.ok;
+            should.not.exist(err1);
+            done();
+        });
+
+    });
+    it('optim set options #5', function(done) {
+        var options = {optipng:{use:true},jpegoptim:{use:true},pngquant:{use:true}};
+        beezlib.image.optim('test/image/logo.jpg', options, function(err1, res1) {
+            res1.should.equal("test/image/logo.jpg").be.ok;
+            should.not.exist(err1);
+            done();
+        });
+
+    });
     it('optim set error', function(done) {
         var options = {
             optipng: {
@@ -181,7 +219,6 @@ describe('beezlib.image', function () {
         };
 
         beezlib.image.optim('test/image/logo.error.jpg', options, function(err, res) {
-
             should.exist(err);
 
             beezlib.image.optim('test/image/logo.error.png', options, function(err1, res1) {
