@@ -11,7 +11,6 @@ Node.js library for beez and beez-founation with beez-tools.
 
 - [beez](https://github.com/CyberAgent/beez)
 - [beez-foundation](https://github.com/CyberAgent/beez-foundation)
-- [beez-tools](https://github.com/CyberAgent/beez-tools)
 
 ## Requirements
 
@@ -44,6 +43,8 @@ Node.js library for beez and beez-founation with beez-tools.
     - nib 標準搭載
 - image
     - optipng
+    - pngquant
+    - jpegoptim
     - imagemagick
         - 画像サイズ取得
         - ファイル名のpixelRatioから、それ以外のpixelRatio画像をリサイズ
