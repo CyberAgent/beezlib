@@ -143,7 +143,7 @@ describe('beezlib.image', function () {
         var options = {
             optipng: {
                 use: true,
-                level: 3
+                options: '-o 3'
             },
             jpegoptim: {
                 use: true,
@@ -170,7 +170,7 @@ describe('beezlib.image', function () {
         var options = {
             optipng: {
                 use: true,
-                level: 3
+                options: '-o 3'
             },
             jpegoptim: {
                 use: true,
@@ -197,7 +197,7 @@ describe('beezlib.image', function () {
         var options = {
             optipng: {
                 use: true,
-                level: 3
+                options: '-o 3'
             },
             jpegoptim: {
                 use: true,
