@@ -1,3 +1,4 @@
+var fs = require('fs');
 var path = require('path');
 var should = require('should');
 var beezlib = require('../lib');
@@ -7,6 +8,7 @@ var _ = require('lodash');
 beezlib.logger.level = 1;
 
 describe('beezlib.image', function () {
+
     it('getSize/resize', function (done) {
         var src = 'test/image/logo.png';
         var dstdir = 'test/image';
@@ -213,5 +215,34 @@ describe('beezlib.image', function () {
 
     });
 
+    it('pngquant success', function(done) {
+        var filepath = "test/image/logo.png";
+        var options = '       --ext           -test.png        -v   ';
+
+        beezlib.image.pngquant(filepath, options, function(err, res) {
+            if (err) {
+                should.fail(err);
+            }
+            fs.unlinkSync("test/image/logo-test.png");
+            done();
+
+        });
+
+    });
+
+    it('pngquant failure', function(done) {
+        var filepath = "test/image/logo.png";
+        var options = '--fail';
+
+        beezlib.image.pngquant(filepath, options, function(err, res) {
+            if (err) {
+                done();
+            } else {
+                should.fail(err);
+                done();
+            }
+
+        });
+    });
 
 });
