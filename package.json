@@ -1,6 +1,6 @@
 {
     "name": "beezlib",
-    "version": "0.9.10",
+    "version": "0.9.11",
     "description": "The utility library for Node.js using beez projects.",
     "keywords": [
         "beez",
@@ -42,6 +42,26 @@
         {
             "name": "Kazuma Mishimagi",
             "email": "mishimagi_kazuma@cyberagent.co.jp",
+            "url": "https://github.com/maginemu"
+        },
+        {
+            "name": "Satoru HIRAKI",
+            "email": "hiraki_satoru@cyberagent.co.jp",
+            "url": "https://github.com/Layzie"
+        },
+        {
+            "name": "Yuhei Aihara",
+            "email": "aihara_yuhei@cyberagent.co.jp",
+            "url": "https://github.com/yuhei-a"
+        },
+        {
+            "name": "Masaki Sueda",
+            "email": "sueda_masaki@cyberagent.co.jp",
+            "url": "https://github.com/masakisueda"
+        },
+        {
+            "name": "Takumi Ohashi",
+            "email": "ohashi_takumi@cyberagent.co.jp",
             "url": "https://github.com/maginemu"
         }
     ],

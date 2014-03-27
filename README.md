@@ -142,6 +142,8 @@ You can load configuration file writeen by json, javascript.
 - Kazuma MISHIMAGI - [@maginemu](https://twitter.com/maginemu) [github](https://github.com/maginemu)
 - HIRAKI Satoru - [github](https://github.com/Layzie)
 - Yuhei Aihara - [github](https://github.com/yuhei-a)
+- Masaki Sueda - [@maaaaaaa0701](https://twitter.com/maaaaaaa0701) [github](https://github.com/masakisueda)
+- Takumi Ohashi - [@__t93](https://twitter.com/__t93) [github](https://github.com/t93)
 
 ## Copyright
 
