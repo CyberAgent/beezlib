@@ -112,6 +112,20 @@ describe('beezlib.image', function () {
         });
     });
 
+    it('ratioResize(baseRatio:3)', function (done) {
+        var baseRatio = 2.0;
+        var outRatios = [3.0, 2.0, 1.0];
+        beezlib.image.imagemagick.ratioResize({}, baseRatio, outRatios, function (err, res) {
+            var format = ['-format', '%wx%h', 'test/image/logo-10.png'];
+            beezlib.image.imagemagick.identify(format, function(err, res) {
+                res = res.replace('\n', '').split('x');
+                res[0].should.equal('200').be.ok;
+                res[1].should.equal('200').be.ok;
+                done();
+            });
+        });
+    });
+
     it('optipng logo.png', function(done) {
         beezlib.image.optipng('test/image/logo.png', function(err) {
             should.not.exist(err);
