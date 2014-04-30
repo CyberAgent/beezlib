@@ -37,11 +37,13 @@ var fs = require('fs');
 
 var stylus = require('stylus');
 var nib = require('nib');
-var _ = require('underscore');
+var _ = require('lodash');
 
 var logger = require('../logger');
 var fsys = require('../fsys');
+var obj = require('../obj');
 var constant = require('../constant');
+var common = require('../common');
 
 var DEFAULT_OPTIONS = constant.CSS_STYLUS_DEFAULT_OPTIONS;
 
@@ -63,16 +65,32 @@ module.exports = {
      * @param {function} callback
      * @example
      * beezlib.css.stylus.write('./test.styl', './test.css', {
-     *   compress: true,
-     *   firebug: false,
-     *   linenos: false,
-     *   nib: true,
-     *   fn : function (styl) {
-     *     styl.define('body-padding', function (data) {
-     *       var rate  = data.val || 1;
-     *       var base = 10;
-     *       return (rate * base) + 'px';
-     *     });
+     *   options: {
+     *     compress: true,
+     *     firebug: false,
+     *     linenos: false,
+     *     nib: true,
+     *     fn : function (styl) {
+     *       styl.define('body-padding', function (data) {
+     *         var rate  = data.val || 1;
+     *         var base = 10;
+     *         return (rate * base) + 'px';
+     *       });
+     *     }
+     *   },
+     *   {
+     *     extend: {
+     *       "condition": {
+     *         "ua": [ "android", "ios" ]
+     *       },
+     *       "content": {
+     *         "options": {
+     *           "fn": {
+     *             "STAT_URL": "http://stat.example.com"
+     *           }
+     *         }
+     *       }
+     *     }
      *   }
      * }, function (err, css) {
      *   if (err) {
@@ -82,7 +100,14 @@ module.exports = {
      * });
      *
      */
-    write: function (src, dst, options, callback) {
+    write: function (src, dst, config, headers, callback) {
+
+        if (_.isFunction(headers)) {
+            callback = headers;
+            headers = undefined;
+        }
+
+        var options = config.options;
 
         if (!fsys.isFileSync(src)) {
             return callback(new Error('source file not found. path:', src));
@@ -106,15 +131,30 @@ module.exports = {
                 .define('b64', stylus.url(urlopt))
         ;
 
-        if(options.nib) { // use nib library
+        if (options.nib) { // use nib library
             styl.use(nib());
         }
 
+        // extend options
+        if (config.hasOwnProperty('extend') && headers && common.isUAOverride(config, headers) && config.extend.hasOwnProperty('content')) {
+            options = obj.copy(config.extend.content, config).options;
+            logger.debug('Override stylus options:', options);
+        }
+
+        // define functions and constant values
         if (options.fn && Object.keys(options.fn).length) {
             styl.use(function (styl) {
-                for (var key in options.fn) {
-                    styl.define(key, function() { return options.fn[key]; });
-                }
+                _.each(options.fn, function (fn, name) {
+                    if (_.isFunction(fn)) {
+                        styl.define(name, function (data) {
+                            return fn(data && data.val);
+                        });
+                    } else {
+                        styl.define(name, function () {
+                            return fn;
+                        });
+                    }
+                });
             });
         }
 
@@ -125,7 +165,8 @@ module.exports = {
             callback(null, css);
         });
     }
-};</code></pre>
+};
+</code></pre>
         </article>
     </section>
 
@@ -135,13 +176,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="JSONStore.html">JSONStore</a></li></ul><h3>Namespaces</h3><ul><li><a href="beezlib.html">beezlib</a></li><li><a href="cmd.html">cmd</a></li><li><a href="css.html">css</a></li><li><a href="fsys.html">fsys</a></li><li><a href="hbs.html">hbs</a></li><li><a href="image.html">image</a></li><li><a href="image.html#imagemagick">imagemagick</a></li><li><a href="logger.html">logger</a></li><li><a href="obj.html">obj</a></li><li><a href="regexp.html">regexp</a></li><li><a href="store.html">store</a></li><li><a href="stylus.html">stylus</a></li><li><a href="template.html">template</a></li></ul><h3>Global</h3><ul><li><a href="global.html#hbs2hbsc2html">hbs2hbsc2html</a></li><li><a href="global.html#isUAOverride">isUAOverride</a></li><li>prite.&lt;lib/css></li><li><a href="global.html#require2hbscjs">require2hbscjs</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="JSONStore.html">JSONStore</a></li></ul><h3>Namespaces</h3><ul><li><a href="beezlib.html">beezlib</a></li><li><a href="checker.html">checker</a></li><li><a href="cmd.html">cmd</a></li><li><a href="css.html">css</a></li><li><a href="fsys.html">fsys</a></li><li><a href="hbs.html">hbs</a></li><li><a href="image.html">image</a></li><li><a href="image.html#imagemagick">imagemagick</a></li><li><a href="logger.html">logger</a></li><li><a href="obj.html">obj</a></li><li><a href="regexp.html">regexp</a></li><li><a href="store.html">store</a></li><li><a href="stylus.html">stylus</a></li><li><a href="template.html">template</a></li></ul><h3>Global</h3><ul><li><a href="global.html#hbs2hbsc2html">hbs2hbsc2html</a></li><li>prite.&lt;lib/css></li><li><a href="global.html#require2hbscjs">require2hbscjs</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Wed Dec 18 2013 14:32:15 GMT+0900 (JST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Wed Apr 30 2014 14:07:40 GMT+0900 (JST)
 </footer>
 
 <script> prettyPrint(); </script>

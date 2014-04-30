@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: obj/index.js</title>
+    <title>JSDoc: Source: common.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: obj/index.js</h1>
+    <h1 class="page-title">Source: common.js</h1>
     
     
 
@@ -26,32 +26,39 @@
     <section>
         <article>
             <pre class="prettyprint source"><code>/**
- * @name obj.js&lt;lib>
+ * @name common.js
  * @author Kei Funagayama &lt;funagayama_kei@cyberagent.co.jp>
  * copyright (c) Cyberagent Inc.
- * @overview object library
+ * @overview common library
  */
 
 var _ = require('lodash');
+var ua = require('beez-ua');
 
-/**
- * @name obj
- * @namespace obj
- */
-module.exports = {
-
+var common = module.exports = {
     /**
+     * Override judgment of UserAgent.
      *
-     * @memberof obj
-     * @method
+     * @param {Object} config
+     * @param {Object} headers
+     * @return {boolean}
+     * @name isUAOverride
+     * @memberof common
      */
-    copy: function (extend, original) {
-        var _original = _.cloneDeep(original);
-        var _extend = _.cloneDeep(extend);
-        var out = _.merge(_original, _extend);
+    isUAOverride: function (config, headers) {
+        if (!config.extend.hasOwnProperty('condition') ||
+            !config.extend.condition.hasOwnProperty('ua')) {
+            return false;
+        }
 
-        return out;
+        // Get OS information from UserAgent
+        ua.setup(headers['user-agent'] || '-');
+
+        return _.some(config.extend.condition.ua, function(os) {
+            return !!ua.os[os];
+        });
     }
+
 };
 </code></pre>
         </article>
