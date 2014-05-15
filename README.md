@@ -35,7 +35,11 @@ Node.js library for beez and beez-founation with beez-tools.
 
 - sprite
     - 複数画像を一枚にする
-    - StylusファイルでCSSを出力可能
+        - StylusファイルでCSSを出力可能
+    - ライブラリの切り替え(options.sprite2)
+        - node-spritesheet, node-spriteから選択可能
+        - node-spritesheetでは複数解像度対応時にバグが見つかったため、次のメジャーアップデートではnode-spriteのみになります。
+
 - stylus
     - コンパイル
     - b64 サポート
@@ -123,7 +127,7 @@ You can load configuration file writeen by json, javascript.
 
     // You can use these global objects on Node.js.
     // 'process', 'require', '__filename', '__dirname', 'module', 'exports'
-    
+
     var fs = require('fs'); // sample
 
     return {
