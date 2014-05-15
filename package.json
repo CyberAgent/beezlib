@@ -82,7 +82,8 @@
         "colors": "~0.6.0",
         "jsonlint": "~1.6.0",
         "beez-ua": "~1.0.3",
-        "node-spritesheet": "git+https://github.com/shibucafe/node-spritesheet.git"
+        "node-spritesheet": "git+https://github.com/shibucafe/node-spritesheet.git",
+        "node-sprite": "git+https://github.com/masakisueda/node-sprite.git"
     },
     "devDependencies": {
         "jsdoc": "~3.2.2",
