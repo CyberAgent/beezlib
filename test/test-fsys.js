@@ -33,6 +33,12 @@ describe('beezlib.fsys', function () {
     it('readFileFnJSONSync', function () {
         var json = beezlib.fsys.readFileFnJSONSync('test/json/json.js');
         json.hoge.should.equal('foo').be.ok;
+
+        var user = beezlib.fsys.readFileFnJSONSync('test/json/user.js');
+        user.name.should.equal('nickname').be.ok;
+        var user_body = beezlib.fsys.readFileFnJSONSync('test/json/user.body.js');
+        user_body.head.should.equal('head1').be.ok;
+        user.body.should.eql(user_body).be.ok;
     });
     it('readFileMultiConfigureSync', function () {
         var json = beezlib.fsys.readFileMultiConfigureSync('test/json/json.js');
