@@ -80,14 +80,14 @@
         "stylus": "~0.48.1",
         "nib": "~1.0.0",
         "colors": "~0.6.0",
-        "jsonlint": "~2.5.5",
+        "jsonlint": "~1.6.2",
         "beez-ua": "~1.0.3",
         "node-spritesheet": "git+https://github.com/shibucafe/node-spritesheet.git",
         "node-sprite": "git+https://github.com/masakisueda/node-sprite.git"
     },
     "devDependencies": {
         "jsdoc": "~3.2.2",
-        "jshint": "~2.3.0",
+        "jshint": "~2.5.5",
         "mocha": "~1.21.4",
         "should": "~4.0.4"
     },
