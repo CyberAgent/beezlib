@@ -12,7 +12,7 @@ describe('beezlib.css', function () {
                 linenos: false,
                 nib: true,
                 fn : {
-                    color: '#FFFFFF',
+                    'white': '#FFFFFF',
                     'body-padding': function (value) {
                         value.should.equal(3);
                         return value + 'px';
@@ -20,7 +20,7 @@ describe('beezlib.css', function () {
                 }
             }
         }, function (err, css) {
-            var ans = "body{padding:'3px';font:14px \"Lucida Grande\",Helvetica,Arial,sans-serif;'#FFFFFF'}\n";
+            var ans = "body{padding:'3px';font:14px \"Lucida Grande\",Helvetica,Arial,sans-serif;color:'#FFFFFF'}";
             if (err) {
                 console.log(err);
                 should.fail();
@@ -40,7 +40,7 @@ describe('beezlib.css', function () {
                 linenos: false,
                 nib: true,
                 fn : {
-                    color: '#000000',
+                    'white': '#000000',
                     'body-padding': function (value) {
                         should.fail();
                     }
@@ -53,7 +53,7 @@ describe('beezlib.css', function () {
                 content: {
                     options: {
                         fn: {
-                            color: '#111111',
+                            'white': '#111111',
                             'body-padding': function (value) {
                                 value.should.equal(3);
                                 return value + 'px';
@@ -73,7 +73,7 @@ describe('beezlib.css', function () {
             config,
             headers,
             function (err, css) {
-                var ans = "body{padding:'3px';font:14px \"Lucida Grande\",Helvetica,Arial,sans-serif;'#111111'}\n";
+                var ans = "body{padding:'3px';font:14px \"Lucida Grande\",Helvetica,Arial,sans-serif;color:'#111111'}";
                 if (err) {
                     console.log(err);
                     should.fail();
@@ -99,9 +99,9 @@ describe('beezlib.css', function () {
     it('sprite getImages', function (done) {
         var options = { extnames: ['.png', '.jpg'] };
         var images = beezlib.css.sprite.getImages('test/image/sprite', 'logo', options);
-        images.should.have.include('test/image/sprite/sprite-logo-hoge.png');
-        images.should.have.include('test/image/sprite/sprite-logo-fuga.jpg');
-        images.should.have.include('test/image/sprite/sprite-logo-foo.png');
+        images.should.containEql('test/image/sprite/sprite-logo-hoge.png');
+        images.should.containEql('test/image/sprite/sprite-logo-fuga.jpg');
+        images.should.containEql('test/image/sprite/sprite-logo-foo.png');
         done();
     });
     it('sprite getGroup', function (done) {
@@ -124,9 +124,9 @@ describe('beezlib.css', function () {
         var options = { ratios: [1, 2] };
         var files = beezlib.css.sprite.getCreateFile('sprite-logo-hoge.png', options);
         files.should.have.length(3);
-        files.should.have.include('sprite-logo.styl');
-        files.should.have.include('sprite-logo@10x.png');
-        files.should.have.include('sprite-logo@20x.png');
+        files.should.containEql('sprite-logo.styl');
+        files.should.containEql('sprite-logo@10x.png');
+        files.should.containEql('sprite-logo@20x.png');
         done();
     });
     it('sprite isSpriteImage', function (done) {
