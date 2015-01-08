@@ -54,6 +54,15 @@ describe('beezlib.image', function () {
 
     });
 
+    it('getDefaultQuality', function (done) {
+        beezlib.image.imagemagick.getDefaultQuality('test/image/logo.png', function (err, res) {
+            err && should.fail(err);
+            res.should.be.ok;
+            res.should.be.within(0.1, 1.0);
+            done();
+        });
+    });
+
     it('ratioResize', function (done) {
         var baseRatio = 2.0;
         var outRatios = [3.0, 2.0, 1.3, 1.0];
