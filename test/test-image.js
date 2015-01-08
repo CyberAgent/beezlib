@@ -30,7 +30,8 @@ describe('beezlib.image', function () {
                 width: rw,
                 height: rh,
                 strip: true,
-                sharpening: 0.3
+                sharpening: 0.3,
+                quality: 0.5
             });
             done();
 
@@ -67,6 +68,7 @@ describe('beezlib.image', function () {
         var baseRatio = 2.0;
         var outRatios = [3.0, 2.0, 1.3, 1.0];
         var options = {
+            quality: 0.5,
             srcPath: 'test/image/logo.png',
             dstPath: 'test/image',
             //width: null,
