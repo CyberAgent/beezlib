@@ -53,7 +53,7 @@ Node.js library for beez and beez-founation with beez-tools.
         - 画像サイズ取得
         - ファイル名のpixelRatioから、それ以外のpixelRatio画像をリサイズ
 - fsys
-    - ファイルのタイプを判定(file, directory, block device, charactor device, symlink, fifo, socket)
+    - ファイルのタイプを判定(file, directory, block device, character device, symlink, fifo, socket)
     - rm -rf (sync) : フォルダ削除
     - mkdir -p (async|sync) : フォルダ作成
     - glob : フォルダ内を走査
